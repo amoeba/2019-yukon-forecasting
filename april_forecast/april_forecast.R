@@ -18,7 +18,7 @@ yuk <- read_csv("data/yukon.csv")
 ggplot(yuk, aes(amatc, mdj)) +
   geom_point(shape = 1) +
   geom_vline(xintercept = as.numeric(yuk[which(yuk$year == 2019),"amatc"])) +
-  labs(x = expression("AMATC,"*~degree*"C"), y = "Median Run Timing (June)")
+  labs(x = expression("April Average Air Temp.,"*~degree*"C"), y = "Median Run Timing (Day of June)")
 
 ggsave("april_forecast/mdj_against_amatc.png", width = 4, height = 4)
 
@@ -52,3 +52,15 @@ ggplot(yuk, aes(amatc, mdj)) +
   geom_point(shape = 1) +
   stat_smooth(method = "lm", color = "black") + 
   labs(x = "Median Run Timing (June)", y = expression("AMATC,"*~degree*"C"))
+
+# Predictions
+
+model_fifdj <- lm(fifdj ~ amatc, data = subset(yuk, year < 2019))
+predict(model_fifdj, newdata =  yuk[yuk$year == 2019,])
+
+model_qdj <- lm(qdj ~ amatc, data = subset(yuk, year < 2019))
+predict(model_qdj, newdata =  yuk[yuk$year == 2019,])
+
+model_mdj <- lm(mdj ~ amatc, data = subset(yuk, year < 2019))
+predict(model_mdj, newdata =  yuk[yuk$year == 2019,])
+
