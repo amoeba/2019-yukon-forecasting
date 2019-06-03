@@ -4,7 +4,7 @@
 
 library(dplyr)
 library(ggplot2)
-theme_set(theme_classic())
+theme_set(theme_bw())
 library(readr)
 library(patchwork) # https://github.com/thomasp85/patchwork
 
@@ -31,13 +31,14 @@ ggsave("may_forecast/figures/mdj_against_pice.png", width = 4, height = 4)
 
 p_amatc <- ggplot(yuk, aes(amatc, mdj)) +
   geom_point(shape=1) +
-  geom_vline(xintercept = yuk[which(yuk$year == forecast_year),"msstc"][[1]]) +
+  geom_vline(xintercept = yuk[which(yuk$year == forecast_year),"amatc"][[1]]) +
   labs(x = expression("AMATC,"*~degree*"C"), y = "Median Run Timing (June)")
 
 ggsave("may_forecast/figures/mdj_against_amatc.png", width = 4, height = 4)
 
 # Three panel plot
-p_amatc + p_msstc + p_pice
+p_msstc + p_pice
+ggsave("may_forecast/figures/three_panel.png", width = 8, height = 4)
 
 # Models
 
