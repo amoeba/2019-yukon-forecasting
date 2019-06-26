@@ -9,8 +9,8 @@ library(dplyr)
 # Load data
 inseason <- read_csv("data/lytf.csv") %>% 
   mutate(ccpue = cumsum(cpue))
-logistic_curve <- read_csv("may_forecast/logistic_curve.csv")
-predictions <- read.csv("may_forecast/predictions.csv")
+logistic_curve <- read_csv("refit/refit_logistic_curve.csv")
+predictions <- read.csv("refit/refit_predictions.csv")
 
 # Calculate estimated pccpue
 today <- tail(inseason, n = 1)$day

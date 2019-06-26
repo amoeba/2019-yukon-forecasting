@@ -1,4 +1,4 @@
-mu <- 23
+mu <- 21
 s <- 4
 
 logi_fun <- function(x, mu, s) { 1 / (1 + exp(-((x - mu)/s))) }
