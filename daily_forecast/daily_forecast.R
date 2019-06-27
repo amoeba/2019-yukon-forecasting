@@ -7,7 +7,7 @@ library(readr)
 library(dplyr)
 
 # Load data
-inseason <- read_csv("data/lytf.csv") %>% 
+inseason <- read_csv("data/lytf.csv") %>%
   mutate(ccpue = cumsum(cpue))
 logistic_curve <- read_csv("refit/refit_logistic_curve.csv")
 predictions <- read.csv("refit/refit_predictions.csv")
@@ -18,7 +18,7 @@ ccpue <- tail(inseason, n = 1)$ccpue
 
 final_ccpue <- (ccpue / (logistic_curve[logistic_curve$day == today,"pccpue"] / 100))[[1]]
 
-estimated <- inseason %>% 
+estimated <- inseason %>%
   mutate(pccpue = ccpue / final_ccpue)
 
 
@@ -29,11 +29,11 @@ write.table(subset(estimated, day >= 1)$pccpue * 100, row.names = FALSE, col.nam
 write.table(inseason[inseason$day >= 1,"ccpue"], row.names = FALSE, col.names = FALSE, file = "daily_forecast/cumulative_cpue.csv")
 
 # Subset the columns for later use
-estimated <- estimated %>% 
+estimated <- estimated %>%
   select(day, pccpue)
 
 # Plot
-logistic_curve %>% 
+logistic_curve %>%
   mutate(date = as.Date(date))
 
 predictions$percent <- c(15, 25, 50)
