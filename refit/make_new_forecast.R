@@ -1,3 +1,6 @@
+library(readr)
+library(tibble)
+
 mu <- 21
 s <- 4
 
